@@ -155,6 +155,8 @@ Each teammate's spawn prompt includes:
 
 Lead's conversation history does NOT carry over — all context must be in the spawn prompt. Project context (CLAUDE.md, MCP servers, skills) loads automatically.
 
+**Agent-aware spawning:** If project agents exist in `.claude/agents/` or `~/.claude/agents/`, match each teammate's agent type to their track. For example, a frontend track uses `senior-frontend-engineer`, a backend track uses `senior-backend-architect`. Use `general-purpose` as fallback. See `subagent-driven-development` skill's "Agent Selection" section for the matching table.
+
 **Plan approval mode:** For risky tracks (core architecture, shared infrastructure), require plan approval — teammate drafts plan in read-only mode, lead approves or rejects with feedback. Set criteria in spawn prompt (e.g., "only approve plans that include test coverage").
 
 ### Phase 5 — Monitor & Coordinate
