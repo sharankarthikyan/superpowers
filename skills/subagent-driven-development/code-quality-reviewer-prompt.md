@@ -21,5 +21,9 @@ Task tool (general-purpose):
 - Are units decomposed so they can be understood and tested independently?
 - Is the implementation following the file structure from the plan?
 - Did this implementation create new files that are already large, or significantly grow existing files? (Don't flag pre-existing file sizes — focus on what this change contributed.)
+- If spec has `## Design Ledger`: Are design tokens used consistently (not hardcoded one-off values)?
+- If spec has `## Design Ledger`: Are all component states from the ledger present?
+- If spec has `## Design Ledger`: Do components follow shadcn composition (className prop, cn())?
+- If spec has `## Design Ledger`: Are there z-index values not in the ledger's z-index scale?
 
 **Code reviewer returns:** Strengths, Issues (Critical/Important/Minor), Assessment
