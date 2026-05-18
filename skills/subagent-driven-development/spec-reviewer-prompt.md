@@ -55,6 +55,21 @@ Task tool (general-purpose):
 
     **Verify by reading code, not by trusting report.**
 
+    **UI Compliance (if spec contains `## Design Ledger`):**
+
+    In addition to functional spec compliance, verify:
+    - Does implementation use the specified design tokens (colors, spacing, radii)?
+      Not generic defaults, not different-shade approximations — the exact tokens.
+    - Are ALL listed component states implemented (not just happy path)?
+      Check each state from the ledger against actual code.
+    - Does responsive behavior match the ledger's breakpoint rules?
+    - Are accessibility requirements met (focus order, contrast, ARIA)?
+    - Does micro-copy match the ledger (not paraphrased)?
+    - Do components accept className and use cn() for shadcn composition?
+
+    Report UI compliance issues with the same format as functional issues:
+    - ❌ UI Issue: [what's wrong] — [file:line] — [what ledger specifies]
+
     Report:
     - ✅ Spec compliant (if everything matches after code inspection)
     - ❌ Issues found: [list specifically what's missing or extra, with file:line references]
