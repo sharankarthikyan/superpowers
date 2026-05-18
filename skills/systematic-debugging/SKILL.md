@@ -119,6 +119,55 @@ You MUST complete each phase before proceeding to the next.
    - Keep tracing up until you find the source
    - Fix at source, not at symptom
 
+6. **Frontend-Specific Evidence Gathering**
+
+   **WHEN issue is visual/layout (wrong spacing, overflow, misalignment):**
+
+   ```
+   1. Browser DevTools → Elements panel
+      - Inspect computed styles (actual px values vs expected)
+      - Check box model (margin/padding/border)
+      - Verify Tailwind classes applied (not overridden by specificity)
+
+   2. Responsive check
+      - Toggle device toolbar at each breakpoint
+      - Check if issue is viewport-specific
+
+   3. Component tree (React DevTools)
+      - Verify props reaching component
+      - Check state values
+      - Profiler tab → "Highlight updates" to catch re-render storms
+
+   4. CSS cascade
+      - Check specificity conflicts
+      - Look for !important overrides
+      - Verify Tailwind layer ordering (@base, @components, @utilities)
+   ```
+
+   **WHEN issue is Next.js hydration error:**
+
+   ```
+   1. Disable JavaScript → view SSR HTML
+   2. Enable JavaScript → compare CSR output
+   3. Find mismatched node (different attributes, extra/missing elements)
+   4. Common causes: browser-only APIs in render (window, localStorage),
+      date/time formatting differences, conditional rendering on client state
+   ```
+
+   **WHEN issue is performance (slow render, jank, layout shifts):**
+
+   ```
+   1. Performance panel → record interaction
+   2. Check for: long tasks (>50ms), forced reflows, excessive re-renders
+   3. Experience lane → identify CLS events (which element shifted, why)
+   4. Network panel → waterfall view → find render-blocking resources
+   ```
+
+   **Console error classification:**
+   - React errors (missing key, invalid hook call) → always bugs, fix immediately
+   - Browser warnings (non-passive listener, mixed content) → investigate, usually safe
+   - Third-party noise (analytics, extensions) → ignore unless affecting functionality
+
 ### Phase 2: Pattern Analysis
 
 **Find the pattern before fixing:**
