@@ -103,6 +103,112 @@ git commit -m "feat: add specific feature"
 ```
 ````
 
+## Frontend Task Decomposition
+
+**When the spec contains a `## Design Ledger` heading**, frontend component tasks use this extended structure instead of the generic task structure above:
+
+````markdown
+### Task N: [Component Name]
+
+**Files:**
+- Create: `src/components/feature/ComponentName.tsx`
+- Create: `src/components/feature/__tests__/ComponentName.test.tsx`
+
+**Design Context:** (from spec's Design Ledger)
+- UX Intent: [user goal, guiding principle]
+- Tokens: [colors, spacing, radii from ledger]
+- States: [default, hover, loading, error, empty]
+- Responsive: [breakpoint behavior from ledger]
+
+- [ ] **Step 1: Define component interface**
+
+```tsx
+interface ComponentNameProps {
+  data: DataType;
+  onAction: (id: string) => void;
+  isLoading?: boolean;
+  className?: string; // required for cn() composition
+}
+```
+
+- [ ] **Step 2: Write failing tests for ALL states**
+
+```tsx
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+
+test('renders component with data', () => {
+  render(<ComponentName data={mockData} onAction={vi.fn()} />);
+  expect(screen.getByRole('region')).toBeInTheDocument();
+});
+
+test('shows empty state when no data', () => {
+  render(<ComponentName data={[]} onAction={vi.fn()} />);
+  expect(screen.getByText('[micro-copy from ledger]')).toBeInTheDocument();
+});
+
+test('shows loading skeleton', () => {
+  render(<ComponentName data={[]} onAction={vi.fn()} isLoading />);
+  expect(screen.getByRole('progressbar')).toBeInTheDocument();
+});
+
+test('calls onAction when clicked', async () => {
+  const onAction = vi.fn();
+  render(<ComponentName data={mockData} onAction={onAction} />);
+  await userEvent.click(screen.getByRole('button', { name: '[label from ledger]' }));
+  expect(onAction).toHaveBeenCalledOnce();
+});
+```
+
+- [ ] **Step 3: Run tests to verify ALL fail**
+
+Run: `npx vitest run path/to/test.tsx`
+Expected: FAIL — component doesn't exist
+
+- [ ] **Step 4: Implement default state (markup + styling)**
+
+```tsx
+import { cn } from '@/lib/utils';
+
+export function ComponentName({ data, onAction, isLoading, className }: ComponentNameProps) {
+  // Use design tokens from ledger — not generic defaults
+  return (
+    <div className={cn("[tokens from ledger]", className)}>
+      ...
+    </div>
+  );
+}
+```
+
+- [ ] **Step 5: Verify render test passes**
+
+- [ ] **Step 6: Implement remaining states (loading, error, empty)**
+  - Follow loading pattern from ledger (skeleton/spinner/optimistic)
+  - Follow error strategy from ledger (inline/toast/modal)
+  - Include micro-copy from ledger exactly
+
+- [ ] **Step 7: Verify ALL state tests pass**
+
+- [ ] **Step 8: Add responsive behavior**
+  - Follow breakpoints from ledger
+
+- [ ] **Step 9: Accessibility check**
+  - Keyboard navigation works
+  - ARIA roles correct
+  - Contrast passes target from ledger
+
+- [ ] **Step 10: Integration wiring**
+  - Import into parent component
+  - Connect props to data source
+  - Handle null/undefined API fields per ledger conventions
+
+- [ ] **Step 11: Commit**
+````
+
+Key differences from generic template: UX Intent in design context, tests for ALL states written before implementation (Step 2), `className`/`cn()` composition, integration wiring step (Step 10), micro-copy from ledger.
+
+When no `## Design Ledger` exists in the spec, use the generic task structure above — no frontend decomposition needed.
+
 ## No Placeholders
 
 Every step must contain the actual content an engineer needs. These are **plan failures** — never write them:
