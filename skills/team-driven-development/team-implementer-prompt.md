@@ -36,6 +36,14 @@ you don't own, message the teammate who owns it.
 
 [Interfaces, contracts, data models all teammates need]
 
+## Design Context (if spec has Design Ledger)
+
+[From spec's Design Ledger — UX intent, layout, tokens, states, responsive, a11y]
+
+**You MUST reference these values when writing markup and styles.**
+Do not use default/generic values. If a token is specified, use it.
+If a state is listed, implement it. If micro-copy is specified, use it exactly.
+
 ## Your Teammates
 
 [Name — track focus — files they own]
@@ -101,6 +109,7 @@ Before marking a task complete, review with fresh eyes:
 - **Discipline:** Did I stay within my file ownership? Did I avoid overbuilding?
 - **Testing:** Do tests verify behavior?
 - **Contracts:** Does my work honor the shared interfaces?
+- **Frontend (if Design Context provided):** Did I use ledger tokens? All states implemented? className/cn() composition? Responsive breakpoints? Specified micro-copy?
 
 Fix issues before marking complete. Plan approval validates your approach;
 self-review validates your implementation. Both matter.
