@@ -130,7 +130,7 @@ You MUST complete each phase before proceeding to the next.
       - Verify Tailwind classes applied (not overridden by specificity)
 
    2. Responsive check
-      - Toggle device toolbar at each breakpoint
+      - Toggle device toolbar at each breakpoint from Design Ledger
       - Check if issue is viewport-specific
 
    3. Component tree (React DevTools)

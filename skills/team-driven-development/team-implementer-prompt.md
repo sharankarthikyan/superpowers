@@ -109,7 +109,12 @@ Before marking a task complete, review with fresh eyes:
 - **Discipline:** Did I stay within my file ownership? Did I avoid overbuilding?
 - **Testing:** Do tests verify behavior?
 - **Contracts:** Does my work honor the shared interfaces?
-- **Frontend (if Design Context provided):** Did I use ledger tokens? All states implemented? className/cn() composition? Responsive breakpoints? Specified micro-copy?
+- **Frontend (if Design Context provided):**
+  - Did I use design tokens from the ledger (not generic defaults)?
+  - Did I implement ALL listed component states?
+  - Does the component accept className and use cn() for composition?
+  - Did I follow the responsive breakpoints from the ledger?
+  - Did I use the specified micro-copy (not invented alternatives)?
 
 Fix issues before marking complete. Plan approval validates your approach;
 self-review validates your implementation. Both matter.

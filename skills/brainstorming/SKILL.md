@@ -186,6 +186,7 @@ digraph brainstorming {
 3. **Checked before proposing** — before suggesting visual direction, check the ledger for contradictions
 4. **Written into spec** — as a structured `## Design Ledger` section (this exact H2 heading is the machine-readable marker used by downstream skills)
 5. **Not all sections required** — fill only what's relevant. A CLI tool with a single output page doesn't need Z-Index or Dark Mode sections.
+6. **Carried into plan** — writing-plans reads the ledger and uses it for frontend task decomposition. The ledger is the source of truth for all visual decisions downstream.
 
 ## After the Design
 
