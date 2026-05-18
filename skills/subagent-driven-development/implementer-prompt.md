@@ -3,7 +3,7 @@
 Use this template when dispatching an implementer subagent.
 
 ```
-Task tool (general-purpose):
+Task tool ({AGENT_TYPE}):
   description: "Implement Task N: [task name]"
   prompt: |
     You are implementing Task N: [task name]
@@ -15,6 +15,16 @@ Task tool (general-purpose):
     ## Context
 
     [Scene-setting: where this fits, dependencies, architectural context]
+
+    ## Design Context (if spec has Design Ledger)
+
+    [From spec's Design Ledger — UX intent, layout, tokens, states, responsive, a11y]
+
+    **You MUST reference these values when writing markup and styles.**
+    Do not use default/generic values. If a token is specified (e.g., "rounded-lg"),
+    use it. If a state is listed (e.g., "empty: illustration + CTA"), implement it.
+    If micro-copy is specified, use it exactly. If a className composition pattern
+    is specified (cn()), follow it.
 
     ## Before You Begin
 
@@ -94,6 +104,13 @@ Task tool (general-purpose):
     - Do tests actually verify behavior (not just mock behavior)?
     - Did I follow TDD if required?
     - Are tests comprehensive?
+
+    **Frontend (if Design Context provided):**
+    - Did I use design tokens from the ledger (not generic defaults)?
+    - Did I implement ALL listed component states?
+    - Does the component accept className and use cn() for composition?
+    - Did I follow the responsive breakpoints from the ledger?
+    - Did I use the specified micro-copy (not invented alternatives)?
 
     If you find issues during self-review, fix them now before reporting.
 
