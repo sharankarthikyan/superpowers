@@ -88,7 +88,7 @@ digraph brainstorming {
 - Once you believe you understand what you're building, present the design
 - Scale each section to its complexity: a few sentences if straightforward, up to 200-300 words if nuanced
 - Ask after each section whether it looks right so far
-- Cover: architecture, components, data flow, error handling, testing
+- Cover: architecture, components, data flow, error handling, testing, and visual design (see Design Ledger below)
 - Be ready to go back and clarify if something doesn't make sense
 
 **Design for isolation and clarity:**
@@ -103,6 +103,89 @@ digraph brainstorming {
 - Explore the current structure before proposing changes. Follow existing patterns.
 - Where existing code has problems that affect the work (e.g., a file that's grown too large, unclear boundaries, tangled responsibilities), include targeted improvements as part of the design - the way a good developer improves code they're working in.
 - Don't propose unrelated refactoring. Stay focused on what serves the current goal.
+
+## Design Ledger
+
+**When the project involves frontend/UI work**, maintain a running Design Ledger throughout brainstorming. This is a structured record of every visual and UX decision, updated immediately as decisions are made.
+
+**Detection (BOTH required):** Project contains frontend files (`.tsx`/`.jsx`/`.vue`/`.svelte` in component/page dirs, CSS framework configured) AND user's request involves visual output (mentions "page"/"component"/"layout"/"UI"/"design"/"form"/"dashboard").
+
+**If `frontend-design-context` skill was invoked at session start**, seed the ledger from the project's DESIGN.md. Otherwise, start with a blank ledger.
+
+**UX Intent comes first.** Before deciding any tokens, layout, or styling, fill the UX Intent section. If you can't articulate user goal and information priority, you're not ready to pick a color scheme.
+
+**Size cap:** Each section under 50 words. Full ledger under 400 words.
+
+### Ledger Template
+
+```
+## Design Ledger
+
+### UX Intent
+- User goal: [what the user is trying to accomplish]
+- User context: [rushed? exploratory? expert? first-time?]
+- Guiding principle: [e.g., "minimize clicks" / "scannable over dense"]
+- Flow: [entry point → key action → exit/next step]
+- Information priority: [P1, P2, P3 on this screen]
+- Error strategy: [inline / toast / blocking modal — and why]
+- Empty state action: [what does a new user do first?]
+- Micro-copy: [key button labels, placeholder text, empty state messages]
+
+### Layout
+- Structure: [e.g., sidebar (240px fixed) + main content area]
+- Grid: [e.g., 12-column, gap-6]
+- Max width: [e.g., max-w-7xl centered]
+
+### Design Tokens
+- Colors: [e.g., zinc-900 bg, zinc-50 text, blue-500 primary]
+- Typography: [e.g., font-mono for data, font-sans for UI, text-sm base]
+- Spacing: [e.g., 8px scale (space-2 base unit)]
+- Radii: [e.g., rounded-lg cards, rounded-md inputs]
+- Icons: [library, sizes, stroke weight]
+
+### Motion
+- Transitions: [e.g., duration-150 ease-out for interactions]
+- Entrances: [e.g., blurFade, staggered reveals]
+- Reduced motion: [respect prefers-reduced-motion]
+
+### Component States
+- [Component]: [state list with visual treatment]
+- Loading pattern: [skeleton / spinner / optimistic — per context]
+- Error boundary strategy: [route-level / widget-level / both]
+
+### Z-Index Layers
+- [e.g., dropdown: 40, modal: 50, toast: 60, tooltip: 70]
+
+### Dark Mode
+- [supported / not supported / follows system]
+
+### Responsive
+- Mobile (<768px): [behavior]
+- Tablet (768-1024px): [behavior]
+- Desktop (>1024px): [behavior]
+
+### Form Validation
+- Strategy: [on blur / submit / live]
+- Error placement: [inline below field / summary at top]
+
+### Accessibility
+- Focus order: [sequence]
+- Contrast: [target, e.g., WCAG AA 4.5:1]
+- Keyboard: [navigation rules]
+
+### shadcn/ui Conventions
+- Installed components: [list]
+- Extension pattern: [cva() in component file]
+- Composition: [accept className, use cn()]
+```
+
+### Ledger Rules
+
+1. **UX Intent filled first** — before any tokens or layout
+2. **Updated immediately** — every decision appended as agreed, not at checkpoints
+3. **Checked before proposing** — before suggesting visual direction, check the ledger for contradictions
+4. **Written into spec** — as a structured `## Design Ledger` section (this exact H2 heading is the machine-readable marker used by downstream skills)
+5. **Not all sections required** — fill only what's relevant. A CLI tool with a single output page doesn't need Z-Index or Dark Mode sections.
 
 ## After the Design
 
@@ -120,6 +203,7 @@ After writing the spec document, look at it with fresh eyes:
 2. **Internal consistency:** Do any sections contradict each other? Does the architecture match the feature descriptions?
 3. **Scope check:** Is this focused enough for a single implementation plan, or does it need decomposition?
 4. **Ambiguity check:** Could any requirement be interpreted two different ways? If so, pick one and make it explicit.
+5. **Design Ledger check (if UI work):** Does the spec include a `## Design Ledger` with UX Intent filled and all relevant sections completed? Are there visual decisions discussed in brainstorming that didn't make it into the ledger?
 
 Fix any issues inline. No need to re-review — just fix and move on.
 
