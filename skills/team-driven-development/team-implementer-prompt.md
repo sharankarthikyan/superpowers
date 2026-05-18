@@ -36,7 +36,7 @@ you don't own, message the teammate who owns it.
 
 [Interfaces, contracts, data models all teammates need]
 
-## Design Context (if spec has Design Ledger)
+## Design Context (if spec contains `## Design Ledger`)
 
 [From spec's Design Ledger — UX intent, layout, tokens, states, responsive, a11y]
 

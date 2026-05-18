@@ -16,7 +16,7 @@ Task tool ({AGENT_TYPE}):
 
     [Scene-setting: where this fits, dependencies, architectural context]
 
-    ## Design Context (if spec has Design Ledger)
+    ## Design Context (if spec contains `## Design Ledger`)
 
     [From spec's Design Ledger — UX intent, layout, tokens, states, responsive, a11y]
 

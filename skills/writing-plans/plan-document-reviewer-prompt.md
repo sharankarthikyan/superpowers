@@ -23,7 +23,7 @@ Task tool (general-purpose):
     | Spec Alignment | Plan covers spec requirements, no major scope creep |
     | Task Decomposition | Tasks have clear boundaries, steps are actionable |
     | Buildability | Could an engineer follow this plan without getting stuck? |
-    | Frontend (if `## Design Ledger` in spec) | Tasks include component interface, ALL state tests before implementation, responsive, a11y, integration wiring |
+    | Frontend (if spec contains `## Design Ledger`) | Tasks include component interface, ALL state tests before implementation, responsive, a11y, integration wiring |
 
     ## Calibration
 
