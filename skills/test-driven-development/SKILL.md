@@ -324,6 +324,75 @@ PASS
 **REFACTOR**
 Extract validation for multiple fields if needed.
 
+## Example: Component with States (React)
+
+**Goal:** Component that renders a list with empty state
+
+**RED — write tests for ALL states before implementing**
+```tsx
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+
+test('renders items as list', () => {
+  render(<ItemList items={mockItems} onAdd={vi.fn()} />);
+  expect(screen.getByRole('list')).toBeInTheDocument();
+  expect(screen.getAllByRole('listitem')).toHaveLength(3);
+});
+
+test('shows empty state when no items', () => {
+  render(<ItemList items={[]} onAdd={vi.fn()} />);
+  expect(screen.getByText('No items yet')).toBeInTheDocument();
+  expect(screen.getByRole('button', { name: 'Add first item' })).toBeInTheDocument();
+});
+
+test('calls onAdd when empty state button clicked', async () => {
+  const onAdd = vi.fn();
+  render(<ItemList items={[]} onAdd={onAdd} />);
+  await userEvent.click(screen.getByRole('button', { name: 'Add first item' }));
+  expect(onAdd).toHaveBeenCalledOnce();
+});
+```
+
+**Verify RED**
+```bash
+$ npx vitest run src/components/__tests__/ItemList.test.tsx
+FAIL: Cannot find module './ItemList'
+```
+
+**GREEN**
+```tsx
+import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
+
+interface ItemListProps {
+  items: Item[];
+  onAdd: () => void;
+  className?: string;
+}
+
+export function ItemList({ items, onAdd, className }: ItemListProps) {
+  if (items.length === 0) {
+    return (
+      <div className={cn("flex flex-col items-center gap-2 py-8 text-zinc-400", className)}>
+        <p className="text-sm">No items yet</p>
+        <Button onClick={onAdd} variant="outline" size="sm">Add first item</Button>
+      </div>
+    );
+  }
+  return (
+    <ul role="list" className={cn("space-y-2", className)}>
+      {items.map(item => <li key={item.id} role="listitem">...</li>)}
+    </ul>
+  );
+}
+```
+
+**Verify GREEN** — all 3 tests pass
+
+**REFACTOR** — extract `EmptyState` component if pattern repeats across components
+
+Note: Tests cover render output AND user interaction (userEvent.click). Components accept `className` for `cn()` composition. Visual regression testing (Chromatic, Percy) is out of scope — don't implement ad-hoc screenshot tests.
+
 ## Verification Checklist
 
 Before marking work complete:
