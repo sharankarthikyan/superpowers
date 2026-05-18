@@ -101,6 +101,40 @@ Use the least powerful model that can handle each role to conserve cost and incr
 - Touches multiple files with integration concerns → standard model
 - Requires design judgment or broad codebase understanding → most capable model
 
+## Agent Selection
+
+When project agents exist in `.claude/agents/` or `~/.claude/agents/`, use them instead of always dispatching `general-purpose`.
+
+### Discovery
+
+Before dispatching any tasks:
+
+1. List agents from `.claude/agents/` and `~/.claude/agents/`
+2. Read each agent's `name` and `description` fields from frontmatter
+3. Build an agent roster for task matching
+
+### Matching
+
+Select agent type for each task based on **task description** (primary) and **file paths** (secondary):
+
+| Task signals | Agent type |
+|---|---|
+| Description mentions components, UI, styling; files are `.tsx`, `.css` | `senior-frontend-engineer` |
+| Description mentions API, database, services; files are routes, models | `senior-backend-architect` |
+| Description mentions UI design, layout, UX, user flow | `ui-ux-designer` |
+| Description mentions tests, test strategy, coverage | `qa-engineer` |
+| No matching agent | `general-purpose` (fallback) |
+
+Task description is the primary signal because files may not exist yet for early tasks.
+
+### Dispatch
+
+Use the selected agent type in the implementer prompt template (see `implementer-prompt.md`). Reviewers stay `general-purpose` — spec compliance and code quality review are domain-agnostic.
+
+### Fallback
+
+If no `.claude/agents/` directory exists, dispatch `general-purpose` for all tasks — identical to current behavior.
+
 ## Handling Implementer Status
 
 Implementer subagents report one of four statuses. Handle each appropriately:
