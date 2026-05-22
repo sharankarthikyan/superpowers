@@ -36,6 +36,12 @@ you don't own, message the teammate who owns it.
 
 [Interfaces, contracts, data models all teammates need]
 
+## Project Profile
+
+[Compact form — stack, structure, conventions, test command]
+
+Match these conventions in your implementation.
+
 ## Design Context (if spec contains `## Design Ledger`)
 
 [From spec's Design Ledger — UX intent, layout, tokens, states, responsive, a11y]

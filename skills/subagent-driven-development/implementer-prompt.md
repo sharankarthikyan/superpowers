@@ -16,6 +16,14 @@ Task tool ({AGENT_TYPE}):
 
     [Scene-setting: where this fits, dependencies, architectural context]
 
+    ## Project Profile
+
+    [Compact form from spec's Project Context — stack, structure, conventions, 
+    test command, auth pattern, data-fetching approach]
+
+    Match these conventions in your implementation. Use the test command shown 
+    here, not a guessed one.
+
     ## Design Context (if spec contains `## Design Ledger`)
 
     [From spec's Design Ledger — UX intent, layout, tokens, states, responsive, a11y]
@@ -27,6 +35,12 @@ Task tool ({AGENT_TYPE}):
     is specified (cn()), follow it.
 
     ## Before You Begin
+
+    Before writing any new code:
+    1. Search the codebase for existing similar code in the area you're working
+    2. Read at least one existing component/module nearby — match its patterns
+    3. State what you found: "Existing code in this area uses ___"
+    If you can't find similar code, ask for guidance. Don't invent patterns.
 
     If you have questions about:
     - The requirements or acceptance criteria
