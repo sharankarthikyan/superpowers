@@ -22,6 +22,17 @@ Assume they are a skilled developer, but know almost nothing about our toolset o
 
 If the spec covers multiple independent subsystems, it should have been broken into sub-project specs during brainstorming. If it wasn't, suggest breaking this into separate plans — one per subsystem. Each plan should produce working, testable software on its own.
 
+## Research Before Planning
+
+Before defining tasks:
+
+1. Read `## Project Context` and `## Research Findings` from the spec
+2. Scan the codebase for existing patterns related to this feature
+3. Use the detected stack for task examples — not hardcoded frameworks
+4. Match test framework, file structure, and conventions to the Project Profile
+
+If the spec has no `## Project Context`, run discovery commands yourself (see brainstorming skill's "Project Discovery and Research" section) before writing tasks.
+
 ## File Structure
 
 Before defining tasks, map out which files will be created or modified and what each one is responsible for. This is where decomposition decisions get locked in.

@@ -68,6 +68,16 @@ digraph tdd_cycle {
 }
 ```
 
+### Research Before Testing
+
+Before writing your first test:
+
+1. Check what test framework the project uses — look at existing test files, package.json scripts, or config files
+2. Read at least one existing test file in the project — match its style (imports, assertion syntax, file naming)
+3. Use the project's test runner command (from Project Profile or package.json), not a hardcoded one
+
+Never assume Vitest/Jest/Pytest. Discover what's configured.
+
 ### RED - Write Failing Test
 
 Write one minimal test showing what should happen.
