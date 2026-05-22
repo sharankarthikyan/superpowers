@@ -65,7 +65,7 @@ Task tool (general-purpose):
     - Does responsive behavior match the ledger's breakpoint rules?
     - Are accessibility requirements met (focus order, contrast, ARIA)?
     - Does micro-copy match the ledger (not paraphrased)?
-    - Do components accept className and use cn() for shadcn composition?
+    - Do components follow the composition pattern identified in the Project Profile? If no pattern identified, check existing components. If none found, skip.
 
     Report UI compliance issues with the same format as functional issues:
     - ❌ UI Issue: [what's wrong] — [file:line] — [what ledger specifies]
