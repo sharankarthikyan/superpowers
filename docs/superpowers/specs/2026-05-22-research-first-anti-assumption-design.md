@@ -452,7 +452,7 @@ Equally detailed as any tool supplement.]
 - Not creating a persistent Project Profile file on disk (working memory artifact, embedded in specs)
 - Not building automated stack detection tooling (manual commands interpreted by agent)
 - Not removing agent expertise (stays as conditional knowledge)
-- Not changing pipeline flow (brainstorming → plans → execution stays same, just research-enriched)
+- Not changing pipeline sequence (brainstorming → plans → execution stays same). Discovery and research are additive enrichment within existing steps, not new pipeline stages.
 - Not making every skill do web research (tiered: only heavy-tier skills do domain research)
 
 ## Open Questions
