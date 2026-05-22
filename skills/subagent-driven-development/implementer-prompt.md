@@ -31,8 +31,8 @@ Task tool ({AGENT_TYPE}):
     **You MUST reference these values when writing markup and styles.**
     Do not use default/generic values. If a token is specified (e.g., "rounded-lg"),
     use it. If a state is listed (e.g., "empty: illustration + CTA"), implement it.
-    If micro-copy is specified, use it exactly. If a className composition pattern
-    is specified (cn()), follow it.
+    If micro-copy is specified, use it exactly. Follow the project's composition
+    pattern as specified in the Project Profile.
 
     ## Before You Begin
 
