@@ -94,14 +94,19 @@ These thoughts mean STOP—you're rationalizing:
 | "This feels productive" | Undisciplined action wastes time. Skills prevent this. |
 | "I know what that means" | Knowing the concept ≠ using the skill. Invoke it. |
 
+## Frontend Project Detection
+
+If the project contains frontend files (`.tsx`/`.jsx`/`.vue`/`.svelte` in component/page directories, CSS framework configured) AND the user's request involves visual output, invoke `superpowers:frontend-design-context` before brainstorming. This loads or creates the project's DESIGN.md and makes design context available for the Design Ledger.
+
 ## Skill Priority
 
 When multiple skills could apply, use this order:
 
-1. **Process skills first** (brainstorming, debugging) - these determine HOW to approach the task
-2. **Implementation skills second** (frontend-design, mcp-builder) - these guide execution
+1. **Context skills first** (frontend-design-context) - these establish project context
+2. **Process skills second** (brainstorming, debugging) - these determine HOW to approach the task
+3. **Implementation skills third** (frontend-design, mcp-builder) - these guide execution
 
-"Let's build X" → brainstorming first, then implementation skills.
+"Let's build X" → frontend-design-context (if UI project) → brainstorming → implementation skills.
 "Fix this bug" → debugging first, then domain-specific skills.
 
 ## Skill Types

@@ -121,6 +121,8 @@ You MUST complete each phase before proceeding to the next.
 
 6. **Frontend-Specific Evidence Gathering**
 
+   **Applies when Project Profile indicates a frontend project** (React, Vue, Svelte, or other UI framework detected). If you don't have a Project Profile, check `package.json` or config files to determine the stack before applying framework-specific debugging steps.
+
    **WHEN issue is visual/layout (wrong spacing, overflow, misalignment):**
 
    ```

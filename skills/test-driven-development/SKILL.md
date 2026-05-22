@@ -72,9 +72,14 @@ digraph tdd_cycle {
 
 Before writing your first test:
 
-1. Check what test framework the project uses — look at existing test files, package.json scripts, or config files
-2. Read at least one existing test file in the project — match its style (imports, assertion syntax, file naming)
-3. Use the project's test runner command (from Project Profile or package.json), not a hardcoded one
+1. **Discover the test framework** — run these commands:
+   ```bash
+   cat package.json 2>/dev/null | grep -A5 '"scripts"'   # find test command
+   find . -name "*.test.*" -o -name "*.spec.*" -not -path '*/node_modules/*' | head -5  # find existing tests
+   cat vitest.config.* jest.config.* pytest.ini pyproject.toml 2>/dev/null | head -20  # find test config
+   ```
+2. **Read at least one existing test file** — match its style (imports, assertion syntax, file naming, setup patterns)
+3. **Use the project's test runner command** (from Project Profile or package.json scripts), not a hardcoded one
 
 Never assume Vitest/Jest/Pytest. Discover what's configured.
 

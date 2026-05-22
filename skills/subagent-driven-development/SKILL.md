@@ -129,7 +129,11 @@ Task description is the primary signal because files may not exist yet for early
 
 ### Dispatch
 
-Use the selected agent type in the implementer prompt template (see `implementer-prompt.md`). Reviewers stay `general-purpose` — spec compliance and code quality review are domain-agnostic.
+Use the selected agent type in the implementer prompt template — replace `{AGENT_TYPE}` in `implementer-prompt.md` with the matched agent name (e.g., `senior-frontend-engineer`). If no match, use `general-purpose`.
+
+**Populate the `## Project Profile` field:** Read the spec's `## Project Context` section and compact it into the implementer prompt's `## Project Profile` field (stack, structure, conventions, test command — under 100 words). If the spec has no `## Project Context`, run discovery commands yourself and build the compact Profile before dispatching.
+
+Reviewers stay `general-purpose` — spec compliance and code quality review are domain-agnostic.
 
 ### Fallback
 
