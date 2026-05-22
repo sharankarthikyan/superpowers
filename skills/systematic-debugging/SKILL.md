@@ -168,6 +168,19 @@ You MUST complete each phase before proceeding to the next.
    - Browser warnings (non-passive listener, mixed content) → investigate, usually safe
    - Third-party noise (analytics, extensions) → ignore unless affecting functionality
 
+7. **Domain Research for Unfamiliar Errors**
+
+   **WHEN the error message or behavior is unfamiliar:**
+
+   ```
+   1. Search the web for the exact error message before proposing fixes
+   2. Check if this error has been encountered before in this project (git log --grep)
+   3. Read framework documentation for the specific API causing the error
+   4. State what you found: "This error typically means ___ and is caused by ___"
+   ```
+
+   Do NOT guess at fixes for errors you haven't seen before. Research first.
+
 ### Phase 2: Pattern Analysis
 
 **Find the pattern before fixing:**
