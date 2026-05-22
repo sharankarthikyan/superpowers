@@ -205,7 +205,9 @@ export function ComponentName({ data, onAction, isLoading, className }: Componen
 - [ ] **Step 11: Commit**
 ````
 
-Key differences from generic template: UX Intent in design context, tests for ALL states written before implementation (Step 2), `className`/`cn()` composition, integration wiring step (Step 10), micro-copy from ledger.
+Key differences from generic template: UX Intent in design context, tests for ALL states written before implementation (Step 2), project's composition pattern, integration wiring step (Step 10), micro-copy from ledger.
+
+**Stack adaptation:** The example above shows React/Vitest/shadcn as one possible output. Adapt to the project's detected stack from the Project Profile: use the project's test framework, component patterns, styling approach, and composition conventions. RED-GREEN-REFACTOR is universal; specific imports and APIs adapt to the project.
 
 When no `## Design Ledger` exists in the spec, use the generic task structure above — no frontend decomposition needed.
 
