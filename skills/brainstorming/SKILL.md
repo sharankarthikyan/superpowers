@@ -21,7 +21,7 @@ Every project goes through this process. A todo list, a single-function utility,
 
 You MUST create a task for each of these items and complete them in order:
 
-1. **Explore project context** — check files, docs, recent commits
+1. **Discover project and research the domain** — mandatory discovery + domain research before any design questions (see "Project Discovery and Research" section below)
 2. **Offer visual companion** (if topic will involve visual questions) — this is its own message, not combined with a clarifying question. See the Visual Companion section below.
 3. **Ask clarifying questions** — one at a time, understand purpose/constraints/success criteria
 4. **Propose 2-3 approaches** — with trade-offs and your recommendation
@@ -103,6 +103,97 @@ digraph brainstorming {
 - Explore the current structure before proposing changes. Follow existing patterns.
 - Where existing code has problems that affect the work (e.g., a file that's grown too large, unclear boundaries, tangled responsibilities), include targeted improvements as part of the design - the way a good developer improves code they're working in.
 - Don't propose unrelated refactoring. Stay focused on what serves the current goal.
+
+## Project Discovery and Research
+
+**This replaces the previous soft "explore project context" with a mandatory two-phase process.**
+
+### Phase A — Project Discovery (mandatory, under 60 seconds)
+
+Run adaptive discovery commands to build a Project Profile:
+
+```bash
+# Auto-detect project type — run what exists, skip what doesn't
+cat package.json 2>/dev/null | head -50
+cat pyproject.toml 2>/dev/null | head -30
+cat go.mod 2>/dev/null | head -20
+cat Cargo.toml 2>/dev/null | head -20
+cat tsconfig.json 2>/dev/null | head -20
+cat tailwind.config.* 2>/dev/null | head -30
+cat next.config.* 2>/dev/null | head -20
+cat vite.config.* 2>/dev/null | head -20
+find . -maxdepth 3 -type d -not -path '*/node_modules/*' -not -path '*/.git/*' -not -path '*/venv/*' | head -40
+git log --oneline -10
+cat package.json 2>/dev/null | grep -A5 '"scripts"'
+ls src/components/ 2>/dev/null || ls components/ 2>/dev/null || ls app/components/ 2>/dev/null || ls lib/ 2>/dev/null
+```
+
+From the output, build a **Project Profile** capturing: stack (language, framework, UI library, styling, component library, test framework, test command), structure (source root, component dirs, test location), and conventions (naming, exports, composition patterns, import aliases).
+
+**Empty project:** If all commands return empty, state "no existing project detected" and ask the user what stack they intend to use.
+
+**Monorepo:** If multiple package manifests found, ask user which package is in scope.
+
+After discovery, check if project involves UI work (frontend files + user request involves visual output). If yes, create Design Ledger per the section below.
+
+### Phase B — Domain Research (for non-trivial features, cap 5 minutes)
+
+Before asking design questions, research how the feature works elsewhere:
+
+- Search the web for how similar features are typically designed and implemented
+- Search the codebase for related existing features
+- Look at recent git history for related work in progress
+
+**Skip domain research ONLY when:** You can link to a specific file in this codebase that implements the same feature type with the same interaction model. "We have a table component" does NOT justify skipping for a chart feature.
+
+**If web search unavailable** (sandboxed/offline): skip domain research, note it in the assertion gate.
+
+### Assertion Gate
+
+**Before asking your first design question, state:**
+
+- "**Project uses:** [stack summary — with evidence: file path or command output]"
+- "**Related existing features:** [what you found in codebase, with file paths]"
+- "**Domain research:** [what you learned about how this feature typically works, with sources]"
+
+**Minimum specificity:** Each finding must include tool name + version/variant + one project-specific pattern observed. "Uses React" doesn't count. "React 18 with App Router, components in src/components/ use server components" does.
+
+If any category is blank and you haven't skipped it per the rules above, you haven't done enough research. Go back.
+
+### Spec Template Additions
+
+Every spec includes these sections before the design content:
+
+```
+## Project Context
+
+[Compact Project Profile — stack, structure, conventions, auth pattern, data-fetching approach]
+
+## Research Findings
+
+### Domain Research
+- [How similar features work in comparable products — with sources]
+- [Key patterns, trade-offs, common approaches discovered]
+
+### Codebase Research
+- [Existing related features found in this project — with file paths]
+- [Patterns that should be followed or extended]
+- [Recent related work in git history]
+```
+
+These flow through the pipeline: writing-plans reads them, implementers receive the compact Profile, reviewers verify against discovered patterns.
+
+### Precedence Chain
+
+When sources conflict, follow this hierarchy:
+
+```
+User intent (highest)
+  > DESIGN.md (prescribed design intent)
+    > Design Ledger (per-feature visual decisions)
+      > Project Profile (detected codebase reality)
+        > Skill defaults (lowest)
+```
 
 ## Design Ledger
 
@@ -206,6 +297,7 @@ After writing the spec document, look at it with fresh eyes:
 3. **Scope check:** Is this focused enough for a single implementation plan, or does it need decomposition?
 4. **Ambiguity check:** Could any requirement be interpreted two different ways? If so, pick one and make it explicit.
 5. **Design Ledger check (if UI work):** Does the spec include a `## Design Ledger` with UX Intent filled and all relevant sections completed? Are there visual decisions discussed in brainstorming that didn't make it into the ledger?
+6. **Research completeness (all projects):** Does the spec include `## Project Context` with a complete Profile and `## Research Findings` with domain and codebase research? Are there design decisions not grounded in either the Profile or research findings?
 
 Fix any issues inline. No need to re-review — just fix and move on.
 
