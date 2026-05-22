@@ -29,6 +29,8 @@ Check for `DESIGN.md` at project root. If it exists, load it. If not, create one
 
 ### DESIGN.md Template
 
+> **Important:** When creating DESIGN.md interactively, populate values from the Project Profile (discovered from the actual codebase), not from the generic defaults shown below. The template shows common examples — your project's actual values may differ.
+
 ```
 # Design System
 
