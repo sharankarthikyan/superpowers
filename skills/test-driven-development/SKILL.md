@@ -326,6 +326,8 @@ Extract validation for multiple fields if needed.
 
 ## Example: Component with States (React)
 
+> **Stack note:** This example shows React/Vitest/shadcn. Before writing component tests, discover your project's stack first: check the test config, read an existing test file, and match its patterns. The RED-GREEN-REFACTOR cycle below is universal — the specific imports and APIs adapt to your project.
+
 **Goal:** Component that renders a list with empty state
 
 **RED — write tests for ALL states before implementing**
