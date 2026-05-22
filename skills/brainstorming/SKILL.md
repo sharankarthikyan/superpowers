@@ -173,10 +173,11 @@ digraph brainstorming {
 - Contrast: [target, e.g., WCAG AA 4.5:1]
 - Keyboard: [navigation rules]
 
-### shadcn/ui Conventions
-- Installed components: [list]
-- Extension pattern: [cva() in component file]
-- Composition: [accept className, use cn()]
+### Component Library Conventions
+- Library: [discovered from codebase, e.g., shadcn/ui, MUI, Chakra, Vuetify]
+- Installed components: [discovered — list what exists]
+- Extension pattern: [discovered — how project extends base components]
+- Composition: [discovered — how components accept customization]
 ```
 
 ### Ledger Rules
