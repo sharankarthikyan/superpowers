@@ -112,7 +112,7 @@ Before marking a task complete, review with fresh eyes:
 - **Frontend (if Design Context provided):**
   - Did I use design tokens from the ledger (not generic defaults)?
   - Did I implement ALL listed component states?
-  - Does the component accept className and use cn() for composition?
+  - Does the component follow the project's composition pattern (per Project Profile)?
   - Did I follow the responsive breakpoints from the ledger?
   - Did I use the specified micro-copy (not invented alternatives)?
 
