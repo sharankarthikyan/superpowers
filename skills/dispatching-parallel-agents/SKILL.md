@@ -65,8 +65,10 @@ Each agent gets:
 
 ### 3. Dispatch in Parallel
 
-```typescript
-// In Claude Code / AI environment
+```text
+// In Claude Code, dispatch each as a separate Agent tool call (choose subagent_type
+// per task) within a SINGLE message so they run concurrently. "Task(...)" below is
+// shorthand for one such Agent call — there is no literal Task() function tool.
 Task("Fix agent-tool-abort.test.ts failures")
 Task("Fix batch-completion-behavior.test.ts failures")
 Task("Fix tool-approval-race-conditions.test.ts failures")

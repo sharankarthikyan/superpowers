@@ -39,6 +39,8 @@ If CLAUDE.md, GEMINI.md, or AGENTS.md says "don't use TDD" and a skill says "alw
 
 Skills use Claude Code tool names. Non-CC platforms: see `references/copilot-tools.md` (Copilot CLI), `references/codex-tools.md` (Codex) for tool equivalents. Gemini CLI users get the tool mapping loaded automatically via GEMINI.md.
 
+When a skill template says **"Task tool (X)"** or shows `Task(...)`, dispatch a subagent via the **Agent tool** with `subagent_type: X` — there is no separate `Task` tool; the name is legacy shorthand for one Agent call.
+
 # Using Skills
 
 ## The Rule
@@ -58,13 +60,18 @@ digraph skill_flow {
     "Create TodoWrite todo per item" [shape=box];
     "Follow skill exactly" [shape=box];
     "Respond (including clarifications)" [shape=doublecircle];
+    "Frontend project + visual request?" [shape=diamond];
+    "Invoke frontend-design-context" [shape=box];
 
     "About to EnterPlanMode?" -> "Already brainstormed?";
     "Already brainstormed?" -> "Invoke brainstorming skill" [label="no"];
     "Already brainstormed?" -> "Might any skill apply?" [label="yes"];
     "Invoke brainstorming skill" -> "Might any skill apply?";
 
-    "User message received" -> "Might any skill apply?";
+    "User message received" -> "Frontend project + visual request?";
+    "Frontend project + visual request?" -> "Invoke frontend-design-context" [label="yes"];
+    "Frontend project + visual request?" -> "Might any skill apply?" [label="no"];
+    "Invoke frontend-design-context" -> "Might any skill apply?";
     "Might any skill apply?" -> "Invoke Skill tool" [label="yes, even 1%"];
     "Might any skill apply?" -> "Respond (including clarifications)" [label="definitely not"];
     "Invoke Skill tool" -> "Announce: 'Using [skill] to [purpose]'";
@@ -104,7 +111,7 @@ When multiple skills could apply, use this order:
 
 1. **Context skills first** (frontend-design-context) - these establish project context
 2. **Process skills second** (brainstorming, debugging) - these determine HOW to approach the task
-3. **Implementation skills third** (frontend-design, mcp-builder) - these guide execution
+3. **Implementation skills third** (frontend-design, shadcn) - these guide execution
 
 "Let's build X" → frontend-design-context (if UI project) → brainstorming → implementation skills.
 "Fix this bug" → debugging first, then domain-specific skills.

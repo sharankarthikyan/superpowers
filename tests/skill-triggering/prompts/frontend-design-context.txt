@@ -1,0 +1,3 @@
+I'm picking up work on our existing web app — it's a Next.js project with Tailwind and shadcn/ui already set up. I want to redesign the account settings page: a new layout, refreshed visual styling, and a couple of new UI components for the notification preferences section.
+
+Where should we start?

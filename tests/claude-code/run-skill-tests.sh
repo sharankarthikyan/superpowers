@@ -58,9 +58,13 @@ while [[ $# -gt 0 ]]; do
             echo ""
             echo "Tests:"
             echo "  test-subagent-driven-development.sh  Test skill loading and requirements"
+            echo "  test-team-driven-development.sh      Test team coordination workflow"
             echo ""
             echo "Integration Tests (use --integration):"
             echo "  test-subagent-driven-development-integration.sh  Full workflow execution"
+            echo "  test-requesting-code-review.sh                   Code review behavior"
+            echo "  test-document-review-system.sh                   Spec/plan reviewer catches errors"
+            echo "  test-worktree-native-preference.sh               Native worktree tool preference"
             exit 0
             ;;
         *)
@@ -74,12 +78,15 @@ done
 # List of skill tests to run (fast unit tests)
 tests=(
     "test-subagent-driven-development.sh"
+    "test-team-driven-development.sh"
 )
 
 # Integration tests (slow, full execution)
 integration_tests=(
     "test-subagent-driven-development-integration.sh"
     "test-requesting-code-review.sh"
+    "test-document-review-system.sh"
+    "test-worktree-native-preference.sh"
 )
 
 # Add integration tests if requested

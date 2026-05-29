@@ -55,6 +55,13 @@ that only appear when combining everyone's work.
 - Does the combined output satisfy the original plan's requirements?
 - Is anything missing that no individual track was responsible for?
 
+**UI compliance (if the plan contains `## Design Ledger`):**
+- Are design tokens (colors, spacing, radii, type scale) consistent across all teammates' components — no divergent literal values for the same token?
+- Do all components implement the same set of ledger-defined states (default, hover, focus, disabled, loading, empty, error)?
+- Is responsive behavior consistent across tracks (same breakpoints, no conflicting layout rules)?
+- Do z-index / layering values used by multiple teammates fit the ledger's scale without conflict?
+- Is micro-copy consistent with the ledger across tracks (no track inventing its own wording)?
+
 ## Review Limits
 
 Maximum 2 integration review rounds. If critical issues persist after

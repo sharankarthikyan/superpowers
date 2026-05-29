@@ -70,7 +70,9 @@ digraph tdd_cycle {
 
 ### Research Before Testing
 
-Before writing your first test:
+**If a Project Profile was already established this session** (from brainstorming, the SDD controller, or a team spawn context), skip the discovery commands — use the test command and conventions it records.
+
+Otherwise, before writing your first test:
 
 1. **Discover the test framework** — run these commands:
    ```bash
@@ -408,7 +410,7 @@ export function ItemList({ items, onAdd, className }: ItemListProps) {
 
 **REFACTOR** — extract `EmptyState` component if pattern repeats across components
 
-Note: Tests cover render output AND user interaction (userEvent.click). Components accept `className` for `cn()` composition. Visual regression testing (Chromatic, Percy) is out of scope — don't implement ad-hoc screenshot tests.
+Note: Tests cover render output AND user interaction (userEvent.click). Visual regression testing (Chromatic, Percy) is out of scope — don't implement ad-hoc screenshot tests. (Composition conventions like `className`/`cn()` are React/shadcn-specific — follow the project's pattern from the Design Ledger, not a fixed rule.)
 
 ## Verification Checklist
 

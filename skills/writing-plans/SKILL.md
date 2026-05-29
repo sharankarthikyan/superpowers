@@ -118,6 +118,8 @@ git commit -m "feat: add specific feature"
 
 **When the spec contains a `## Design Ledger` heading**, frontend component tasks use this extended structure instead of the generic task structure above:
 
+> **Adapt to the detected stack.** The template below shows React + Vitest + shadcn as *one possible output*. Substitute the project's stack from the Project Profile — test runner, import paths, component/composition pattern, and styling approach. RED-GREEN-REFACTOR is universal; the specific imports and APIs are placeholders, not requirements.
+
 ````markdown
 ### Task N: [Component Name]
 
@@ -138,7 +140,7 @@ interface ComponentNameProps {
   data: DataType;
   onAction: (id: string) => void;
   isLoading?: boolean;
-  className?: string; // required for cn() composition
+  className?: string; // [styling/composition prop per Project Profile — e.g. cn() for shadcn]
 }
 ```
 
@@ -173,12 +175,13 @@ test('calls onAction when clicked', async () => {
 
 - [ ] **Step 3: Run tests to verify ALL fail**
 
-Run: `npx vitest run path/to/test.tsx`
+Run: `[test command from Project Profile]` (React/Vitest example: `npx vitest run path/to/test.tsx`)
 Expected: FAIL — component doesn't exist
 
 - [ ] **Step 4: Implement default state (markup + styling)**
 
 ```tsx
+// Imports and composition adapt to the Project Profile — React/shadcn shown as example:
 import { cn } from '@/lib/utils';
 
 export function ComponentName({ data, onAction, isLoading, className }: ComponentNameProps) {

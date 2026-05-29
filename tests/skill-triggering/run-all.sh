@@ -15,6 +15,7 @@ SKILLS=(
     "executing-plans"
     "requesting-code-review"
     "team-driven-development"
+    "frontend-design-context"
 )
 
 echo "=== Running Skill Triggering Tests ==="

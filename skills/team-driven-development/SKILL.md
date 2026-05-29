@@ -94,7 +94,7 @@ digraph process {
     "Read plan, build dependency graph" [shape=box];
     "Assign file ownership per teammate" [shape=box];
     "Choose git strategy\n(file partitioning or worktrees)" [shape=diamond];
-    "Create task list with TaskCreate + addBlockedBy" [shape=box];
+    "Create tasks (TaskCreate),\nset deps (TaskUpdate addBlockedBy)" [shape=box];
     "Create team, spawn teammates" [shape=box];
     "Monitor: idle notifications +\npeer messaging + escalation" [shape=box];
     "All tasks complete?" [shape=diamond];
@@ -106,8 +106,8 @@ digraph process {
 
     "Read plan, build dependency graph" -> "Assign file ownership per teammate";
     "Assign file ownership per teammate" -> "Choose git strategy\n(file partitioning or worktrees)";
-    "Choose git strategy\n(file partitioning or worktrees)" -> "Create task list with TaskCreate + addBlockedBy";
-    "Create task list with TaskCreate + addBlockedBy" -> "Create team, spawn teammates";
+    "Choose git strategy\n(file partitioning or worktrees)" -> "Create tasks (TaskCreate),\nset deps (TaskUpdate addBlockedBy)";
+    "Create tasks (TaskCreate),\nset deps (TaskUpdate addBlockedBy)" -> "Create team, spawn teammates";
     "Create team, spawn teammates" -> "Monitor: idle notifications +\npeer messaging + escalation";
     "Monitor: idle notifications +\npeer messaging + escalation" -> "All tasks complete?";
     "All tasks complete?" -> "Monitor: idle notifications +\npeer messaging + escalation" [label="no"];
@@ -140,7 +140,7 @@ digraph process {
 ### Phase 3 — Create Task List
 
 - `TaskCreate` for every task from the plan with full text description
-- Set `addBlockedBy` for dependencies — system auto-unblocks when predecessors complete
+- Then set dependencies with `TaskUpdate`'s `addBlockedBy` (it is a `TaskUpdate` field, **not** a `TaskCreate` parameter) — the system auto-unblocks dependents when predecessors complete
 - Tasks start `pending` — teammates self-claim (file locking prevents race conditions)
 - Lead can explicitly assign tasks when domain expertise matters
 
@@ -150,6 +150,8 @@ Each teammate's spawn prompt includes:
 - Track focus area and expertise
 - File ownership map (their files + all teammates' files for reference)
 - Shared interfaces/contracts
+- **Project Profile** — populate the team-implementer template's `## Project Profile` field by reading the spec's `## Project Context` section and compacting it (stack, structure, conventions, test command — under 100 words). If the spec has no `## Project Context`, run discovery yourself first. Never spawn with this field left as a placeholder.
+- **Design Context** — if the spec contains a `## Design Ledger`, populate the template's `## Design Context` field with the ledger's UX intent, layout, tokens, states, responsive rules, and micro-copy. Omit only when there is no Design Ledger.
 - Peer teammate names for direct messaging
 - Communication protocol (see below)
 
@@ -189,9 +191,9 @@ Every teammate receives this protocol in their spawn prompt.
 
 | Channel | Mechanism | When |
 |---|---|---|
-| **Peer-to-peer** | `SendMessage` type `message` to named teammate | Quick questions, sharing outputs, discoveries affecting one peer |
-| **Broadcast** | `SendMessage` type `broadcast` | Team-wide announcements (interface changes). Use sparingly — costs scale with team size. |
-| **Escalate to lead** | `SendMessage` type `message` to lead | Architectural decisions, file ownership conflicts, peer can't resolve |
+| **Peer-to-peer** | `SendMessage` to the named teammate (plain-text `message`) | Quick questions, sharing outputs, discoveries affecting one peer |
+| **Multi-peer announcement** | `SendMessage` to each affected peer by name — there is **no** broadcast primitive | Shared-interface changes affecting several peers. Message only the consumers you know from the file-ownership map; cost scales with the number of recipients, so keep the list tight. |
+| **Escalate to lead** | `SendMessage` to the lead (plain-text `message`) | Architectural decisions, file ownership conflicts, peer can't resolve — or ask the lead to relay an announcement to many peers |
 
 **Message guidelines:**
 - Plain text, not structured JSON
@@ -201,7 +203,7 @@ Every teammate receives this protocol in their spawn prompt.
 - Keep short — each message costs tokens for the recipient
 
 **Anti-patterns:**
-- Don't broadcast what affects only one peer — direct message them
+- Don't message every peer for something that affects only one — direct-message that peer
 - Don't poll peers for status — check the task list
 - Don't have extended conversations — if 2-3 messages don't resolve it, escalate to lead
 - Don't use lead as relay — message peers directly
@@ -240,7 +242,7 @@ Three layers replace SDD's per-task two-reviewer model to avoid bottlenecking pa
 | **Peer message unanswered** | Lead routes the answer or nudges the receiver. |
 | **Lead starts implementing** | User tells lead: "Wait for your teammates to complete their tasks." |
 | **File conflict despite ownership** | Lead determines correct version using ownership map. Assigns fix to owner. |
-| **Shared interface changes mid-execution** | Changing teammate MUST broadcast immediately. Lead verifies acknowledgment. |
+| **Shared interface changes mid-execution** | Changing teammate MUST immediately message every affected peer by name (or ask the lead to relay). Lead verifies acknowledgment. |
 | **Multiple teammates fail** | Lead triages: related (fix root cause) or independent (spawn replacements). |
 | **TeamDelete blocks** | Shut down all teammates first. If unresponsive: `tmux kill-session -t <name>`. |
 | **Session interrupted** | On resume: spawn new teammates, check task list for incomplete tasks. |
@@ -254,7 +256,7 @@ Three layers replace SDD's per-task two-reviewer model to avoid bottlenecking pa
 - Skip integration review because "self-review is enough"
 - Let lead implement tasks instead of coordinating
 - Ignore teammate escalations (BLOCKED, NEEDS_CONTEXT)
-- Send broadcast for single-peer questions
+- Message every peer for something that affects only one
 - Loop integration review more than 2 rounds
 - Force-kill teammates without sending shutdown request first
 

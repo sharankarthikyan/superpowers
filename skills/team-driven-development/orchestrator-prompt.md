@@ -39,7 +39,8 @@ Cap at 5 teammates. Minimum 2.
 TaskCreate for EVERY task:
 - subject: "Task N: [name]"
 - description: FULL task text from plan (don't make teammates read file)
-- Set addBlockedBy for dependencies
+
+Then set dependencies with `TaskUpdate addBlockedBy` (an attribute set via TaskUpdate after the tasks exist — not a TaskCreate parameter).
 
 All tasks start pending. Teammates self-claim.
 Use TaskUpdate to manually unblock stuck tasks if needed.
@@ -49,6 +50,8 @@ Use TaskUpdate to manually unblock stuck tasks if needed.
 Write a spawn context block containing:
 - Shared interfaces/contracts between tracks
 - File ownership map: teammate → files they own
+- **Project Profile** — read the spec's `## Project Context` and compact it (stack, structure, conventions, test command — under 100 words). This fills the team-implementer template's `## Project Profile` field; it must not be left empty.
+- **Design Context** — if the spec contains a `## Design Ledger`, extract its UX intent, layout, tokens, states, responsive rules, and micro-copy into the template's `## Design Context` field. Skip only when there is no Design Ledger.
 - Communication protocol summary
 - Peer teammate names and their track focus
 

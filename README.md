@@ -190,6 +190,8 @@ already use it in another harness.
 - **using-git-worktrees** - Parallel development branches
 - **finishing-a-development-branch** - Merge/PR decision workflow
 - **subagent-driven-development** - Fast iteration with two-stage review (spec compliance, then code quality)
+- **team-driven-development** - Parallel multi-agent execution with peer messaging (Claude Code agent teams)
+- **frontend-design-context** - Manages DESIGN.md and seeds the Design Ledger for frontend work
 
 **Meta**
 - **writing-skills** - Create new skills following best practices (includes testing methodology)

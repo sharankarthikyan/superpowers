@@ -82,7 +82,7 @@ Check for `DESIGN.md` at project root. If it exists, load it. If not, create one
 
 When loading an existing DESIGN.md, verify key claims against the actual codebase:
 - Does `tailwind.config` match the token claims?
-- Do listed shadcn components actually exist in `components/ui/`?
+- Do the listed component-library components exist at the path from the Project Profile (e.g. `components/ui/` for shadcn, `src/components/` for custom, `node_modules/` for installed libraries)?
 - Is the stated framework/styling approach still in use?
 
 If discrepancies found, flag them to the user before seeding the ledger.

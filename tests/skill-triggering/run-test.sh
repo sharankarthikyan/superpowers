@@ -36,6 +36,16 @@ echo "Max turns: $MAX_TURNS"
 echo "Output dir: $OUTPUT_DIR"
 echo ""
 
+# Seed a fixture project if one exists for this skill. Some skills (e.g.
+# frontend-design-context) gate on BOTH a request signal AND on-disk files;
+# seeding a fixture makes those triggers deterministic instead of relying on
+# prompt wording alone. Skills without a fixture dir behave exactly as before.
+FIXTURE_DIR="$SCRIPT_DIR/fixtures/$SKILL_NAME"
+if [ -d "$FIXTURE_DIR" ]; then
+    cp -R "$FIXTURE_DIR/." "$OUTPUT_DIR/"
+    echo "Seeded fixture from: $FIXTURE_DIR"
+fi
+
 # Copy prompt for reference
 cp "$PROMPT_FILE" "$OUTPUT_DIR/prompt.txt"
 

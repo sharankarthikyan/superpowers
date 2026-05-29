@@ -129,13 +129,13 @@ You MUST complete each phase before proceeding to the next.
    1. Browser DevTools → Elements panel
       - Inspect computed styles (actual px values vs expected)
       - Check box model (margin/padding/border)
-      - Verify Tailwind classes applied (not overridden by specificity)
+      - Verify utility/CSS classes applied, not overridden by specificity (Tailwind classes if the Profile uses Tailwind)
 
    2. Responsive check
       - Toggle device toolbar at each breakpoint from Design Ledger
       - Check if issue is viewport-specific
 
-   3. Component tree (React DevTools)
+   3. Component tree (framework DevTools — React/Vue/Svelte per Project Profile)
       - Verify props reaching component
       - Check state values
       - Profiler tab → "Highlight updates" to catch re-render storms
@@ -143,7 +143,7 @@ You MUST complete each phase before proceeding to the next.
    4. CSS cascade
       - Check specificity conflicts
       - Look for !important overrides
-      - Verify Tailwind layer ordering (@base, @components, @utilities)
+      - If Tailwind: verify layer ordering (@base, @components, @utilities)
    ```
 
    **WHEN issue is Next.js hydration error:**

@@ -63,8 +63,8 @@ Use SendMessage to communicate directly with peers.
 - You've produced output they'll consume
 - You've discovered something that affects their work
 
-**Broadcast when:**
-- A shared interface has changed (use sparingly)
+**Tell every affected peer when:**
+- A shared interface you own has changed — there is no broadcast, so message each consumer by name (check the file-ownership map for who depends on it), or ask the lead to relay
 
 **Escalate to lead when:**
 - You need to edit a file you don't own
