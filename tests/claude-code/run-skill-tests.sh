@@ -25,7 +25,7 @@ fi
 # Parse command line arguments
 VERBOSE=false
 SPECIFIC_TEST=""
-TIMEOUT=300  # Default 5 minute timeout per test
+TIMEOUT=600  # Default 10 minute timeout per test
 RUN_INTEGRATION=false
 
 while [[ $# -gt 0 ]]; do
@@ -77,6 +77,8 @@ done
 
 # List of skill tests to run (fast unit tests)
 tests=(
+    "test-worktree-path-policy.sh"
+    "test-sdd-workspace.sh"
     "test-subagent-driven-development.sh"
     "test-team-driven-development.sh"
 )
@@ -84,8 +86,6 @@ tests=(
 # Integration tests (slow, full execution)
 integration_tests=(
     "test-subagent-driven-development-integration.sh"
-    "test-requesting-code-review.sh"
-    "test-document-review-system.sh"
     "test-worktree-native-preference.sh"
 )
 

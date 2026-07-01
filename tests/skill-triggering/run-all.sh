@@ -7,13 +7,9 @@ set -e
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROMPTS_DIR="$SCRIPT_DIR/prompts"
 
+# Upstream removed this framework and its prompts; the fork keeps it to
+# cover fork-only skills. Only skills with a prompts/<skill>.txt file run.
 SKILLS=(
-    "systematic-debugging"
-    "test-driven-development"
-    "writing-plans"
-    "dispatching-parallel-agents"
-    "executing-plans"
-    "requesting-code-review"
     "team-driven-development"
     "frontend-design-context"
 )
